@@ -96,7 +96,7 @@ export JAVACMD
 
 
 if [ ! -n "$GROOVYCMD" ] ; then
-    GROOVY_DOWNLOAD_URL='https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.2.zip'
+    GROOVY_DOWNLOAD_URL='https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.7.zip'
     GROOVY_DOWNLOAD_FILE="/tmp/~`basename "$GROOVY_DOWNLOAD_URL"`"
     GROOVY_DIR="/tmp/.groovy"
     if [ ! -d "${GROOVY_DIR}" ] ; then
@@ -146,4 +146,9 @@ if [ ! -z "$PIPELINE_LOCAL_STAGE_DIR" ]; then
     fi
 fi
 
-exec "${GROOVYCMD}" -cp "${OCP_PIPELINE_LIB_DIR}" "${PIPELINE_STAGE_SCRIPT}" "$@"
+#Raj add this for troubleshooting
+echo "GROOVYCMD=${GROOVYCMD}"
+echo "OCP_PIPELINE_LIB_DIR=${OCP_PIPELINE_LIB_DIR}"
+echo "PIPELINE_STAGE_SCRIPT=${PIPELINE_STAGE_SCRIPT}"
+
+exec "${GROOVYCMD}" -cp "${OCP_PIPELINE_LIB_DIR}" "${PIPELINE_STAGE_SCRIPT}" "$@" --debug
